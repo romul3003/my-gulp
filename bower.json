@@ -1,0 +1,23 @@
+{
+  "name": "my-gulp",
+  "description": "my gulp",
+  "main": "index.js",
+  "authors": [
+    "roman"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "reset-css": "^4.0.1",
+    "slick-carousel": "^1.8.1"
+  },
+  "private": true
+}

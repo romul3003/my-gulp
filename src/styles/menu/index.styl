@@ -1,0 +1,20 @@
+.menu
+    margin 10px
+    font-size 20px
+
+    &__list
+        padding 0
+        margin 0 0 0 40px
+        display none
+
+    &__title-icon
+        @extends $menu--closed
+        background-repeat no-repeat
+        margin-right 4px
+        padding-left 20px
+
+    &_open &__title-icon
+        @extends $menu--open
+
+    &_open &__list
+        display block
