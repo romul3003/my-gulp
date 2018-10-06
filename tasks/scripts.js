@@ -15,9 +15,11 @@ module.exports = function(options) {
                 $.if(isDevelopment, $.sourcemaps.init() ),
                 $.concat(options.rename),
                 // uglify({mangle: {toplevel: true}}),
-                $.if(!isDevelopment, uglify({mangle: {toplevel: true}}) ),
+                $.if(!isDevelopment, combine(uglify({mangle: {toplevel: true}}), $.rev()) ),
+
                 $.if(isDevelopment, $.sourcemaps.write() ),
-                gulp.dest(options.dst)
+                gulp.dest(options.dst),
+                $.if(!isDevelopment, combine($.rev.manifest('scripts.json'), gulp.dest('manifest')))
         ).on('error', $.notify.onError(function(err) {
             return {
                 title: 'Scripts Error',

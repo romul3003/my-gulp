@@ -18,7 +18,7 @@ module.exports = function(options) {
                 manifest: gulp.src('manifest/css.json', {allowEmpty: true})
             })),
             $.if(!isDevelopment, revReplace({
-                manifest: gulp.src('manifest/webpack.json', {allowEmpty: true})
+                manifest: gulp.src('manifest/scripts.json', {allowEmpty: true})
             })),
             gulp.dest(options.dst)
         ).on('error', $.notify.onError(function(err) {
