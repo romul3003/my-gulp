@@ -3,8 +3,6 @@
 const gulp = require('gulp');
 const $ = require('gulp-load-plugins')();
 
-// const isDevelopment = !process.env.NODE_ENV || process.env.NODE_ENV == 'development';
-
 function lazyRequireTask(taskName, path, options) {
     options = options || {};
     options.taskName = taskName;
@@ -25,18 +23,6 @@ lazyRequireTask('styles', './tasks/styles', {
     dst: 'public/styles/',
     manifest: '../manifest/'
 });
-
-// lazyRequireTask('scripts:lib', './tasks/scripts-lib', {
-//     src: ['bower_components/jquery/dist/jquery.min.js', 'bower_components/slick-carousel/slick/slick.min.js'],
-//     dst: 'public/js/',
-//     rename: 'libs.min.js'
-// });
-
-// lazyRequireTask('scripts', './tasks/scripts', {
-//     src: 'src/js/main.js',
-//     dst: 'public/js/',
-//     rename: 'main.min.js'
-// });
 
 lazyRequireTask('webpack', './tasks/webpack', {
     src: 'src/js/*.js',
@@ -65,11 +51,10 @@ lazyRequireTask('assets:svg', './tasks/assets-svg', {
 gulp.task('watch', function() {
     gulp.watch('src/pug/**/*.pug', gulp.series('pug'));
     gulp.watch(['src/styles/**/*.styl', 'tmp/styles/sprite.styl'], gulp.series('styles'));
-    // gulp.watch('src/js/**/*.js', gulp.series(['scripts:lib', 'scripts']));
     gulp.watch('src/styles/**/*.{png, jpg}', gulp.series('assets:img'));
     gulp.watch('src/styles/**/*.svg', gulp.series('assets:svg'));
 });
 
-gulp.task('build', gulp.series('clean',  'assets:svg', 'assets:img', gulp.parallel('styles', 'webpack'), 'pug' /*'scripts:lib', 'scripts'*/));
+gulp.task('build', gulp.series('clean',  'assets:svg', 'assets:img', gulp.parallel('styles', 'webpack'), 'pug'));
 
 gulp.task('dev', gulp.series('build', gulp.parallel('watch', 'serve')));
