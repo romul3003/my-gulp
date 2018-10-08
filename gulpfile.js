@@ -24,6 +24,12 @@ lazyRequireTask('styles', './tasks/styles', {
     manifest: '../manifest/'
 });
 
+lazyRequireTask('scripts:lib', './tasks/scripts-lib', {
+    src: ['bower_components/jquery/dist/jquery.min.js', 'bower_components/slick-carousel/slick/slick.min.js'],
+    dst: 'public/js/',
+    rename: 'libs.min.js'
+});
+
 lazyRequireTask('webpack', './tasks/webpack', {
     src: 'src/js/*.js',
     dst: 'public/js'
@@ -55,6 +61,6 @@ gulp.task('watch', function() {
     gulp.watch('src/styles/**/*.svg', gulp.series('assets:svg'));
 });
 
-gulp.task('build', gulp.series('clean',  'assets:svg', 'assets:img', gulp.parallel('styles', 'webpack'), 'pug'));
+gulp.task('build', gulp.series('clean',  'assets:svg', 'assets:img', gulp.parallel('styles', 'scripts:lib', 'webpack'), 'pug'));
 
 gulp.task('dev', gulp.series('build', gulp.parallel('watch', 'serve')));
