@@ -9,26 +9,27 @@ const isDevelopment = !process.env.NODE_ENV || process.env.NODE_ENV == 'developm
 
 module.exports = function(options) {
 
-    let resolve = resolver();
-    let manifest;
-    if (!isDevelopment) {
-        manifest = require(options.manifest + 'img.json');
-    }
-
-    function url(urlLiteral) {
-        urlLiteral = resolve.call(this, urlLiteral);
-        for (let asset in manifest) {
-            if (urlLiteral.val == `url("${asset}")`) {
-                urlLiteral.string = urlLiteral.val = `url("${manifest[asset]}")`;
-            }
-        }
-        return urlLiteral;
-    }
-
-    url.options = resolve.options;
-    url.raw = true;
-
     return function() {
+
+        let resolve = resolver();
+        let manifest;
+        if (!isDevelopment) {
+            manifest = require(options.manifest + 'img.json');
+        }
+
+        function url(urlLiteral) {
+            urlLiteral = resolve.call(this, urlLiteral);
+            for (let asset in manifest) {
+                if (urlLiteral.val == `url("${asset}")`) {
+                    urlLiteral.string = urlLiteral.val = `url("${manifest[asset]}")`;
+                }
+            }
+            return urlLiteral;
+        }
+
+        url.options = resolve.options;
+        url.raw = true;
+
         return combine(
             gulp.src(options.src),
             $.if(isDevelopment, $.sourcemaps.init()),
