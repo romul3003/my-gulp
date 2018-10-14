@@ -10,7 +10,7 @@ module.exports = function(options) {
 
     return function() {
         return combine(
-            gulp.src(options.src, {since: gulp.lastRun(options.taskName)}),
+            gulp.src(options.src),
                 $.if(isDevelopment, $.sourcemaps.init() ),
                 $.concat(options.rename),
                 $.if(!isDevelopment, combine($.babel(), $.uglify({mangle: {toplevel: true}}), $.rev()) ),

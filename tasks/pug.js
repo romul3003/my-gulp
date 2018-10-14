@@ -11,7 +11,7 @@ module.exports = function(options) {
 
     return function() {
         return combine(
-            gulp.src(options.src, {since: gulp.lastRun(options.taskName)}),
+            gulp.src(options.src),
             // $.if(isDevelopment, $.pug({pretty: true})),     // depricated
             $.pug(),
             $.if(!isDevelopment, revReplace({
